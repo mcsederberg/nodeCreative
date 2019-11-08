@@ -5,7 +5,11 @@
 	<meta charset="utf-8" />
 	<link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
 	<link rel="stylesheet" href="/styles.css" />
-	<title>Movie plans</title>
+	
+	<link rel="icon" 
+      type="image/png" 
+      href="https://i.pinimg.com/originals/91/f8/e4/91f8e4f40b061f050e2f43d3e626fe2e.jpg">
+	<title>Movie Planner</title>
 </head>
 
 <body>
@@ -13,22 +17,24 @@
 		
 		
 		<div v-if="noGroup">
-			<div id="instructionsWrapper" class="center">Welcome to Movie Ideas! This site lets you choose a movie to watch, from a selection of trending movies. The data is saved, so you can log in with the same ID to see your movie list from any browser! Share your group ID with friends, and you can collectively choose a movie to watch!</div>
-			<div id="loginWrapper" class="center">Please either register or join a group:</div>
+			<div id="instructionsWrapper" class="center">Welcome to Movie Planner! </div>
+			<div class="center"><button v-on:click="openInfo">What is Movie Planner?</button></div>
+			<div id="loginWrapper" class="center">Please register a new group ID or enter a previously registered ID to join a group:</div>
 			<div id="loginGroup" class="center">
 				<input type="text" name="registerGroupInput" v-model="newGroupName"/><button v-on:click="register">Register</button>
 				<input type="text" name="joinGroupInput" v-model="joinGroupName"/><button v-on:click="join">Join</button>
 			</div>
 			<div v-if="invalidCreateID" class="center">That ID is already in use! Did you mean to join it?</div>
 			<div v-if="invalidJoinID" class="center">That ID has not been created yet! Did you mean to register it?</div>
+			
 		</div>
 		
 		
 		<div v-else>
 			<button v-if="displayingMovies.length == 0" v-on:click="getMovies" class="center">Get Movies</button>
 			<div id="groupNameDisplay" class="center">Group ID: {{groupName}}</div>
-			<div id="movieInstructions" class="center">Click on a movie to view a synopsis, and click the Remove button to remove it from your collection.</div>
-			<div id="return" class="center"><button v-on:click="returnToLogin">Return to login</button></button></div>
+			<div id="movieInstructions" class="center">Click on a movie to view a synopsis, and click its <button>Remove</button> button to remove it from your collection.</div>
+			<!--<div id="return" class="center"><button v-on:click="returnToLogin">Return to login</button></button></div>-->
 			<div id="moviesWrapper">
 				<div v-for="movie in displayingMovies" class="movieWrapper">
 					<img :src="'http://image.tmdb.org/t/p/w500'+movie.poster_path" class="movieImage" v-on:click="selectMovie(movie)">
@@ -43,13 +49,21 @@
 		
 		<div id="divider" v-if="selectedMovie.poster_path" v-on:click="unselectMovie"></div>
 		<div id="selectedDetails" v-if="selectedMovie.poster_path" v-on:click="unselectMovie">
-			<div class="center">Click anywhere to close</div>
+			<div class="center gray">Click anywhere to close</div>
 			<img class="selectedImage center" :src="'http://image.tmdb.org/t/p/w500'+selectedMovie.backdrop_path">
 			<p>
 				<div class="title center">{{selectedMovie.title}}</div><br>
-				<div class="mainText overview ">Overview: {{selectedMovie.overview}}</div><br>
-				<div class="mainText release_date ">Released: {{selectedMovie.release_date}}</div><br>
-				<div class="mainText vote_average ">Average vote: {{selectedMovie.vote_average}}</div><br>
+				<div class="mainText overview "><b>Overview:</b> {{selectedMovie.overview}}</div><br>
+				<div class="mainText release_date "><b>Released:</b> {{selectedMovie.release_date}}</div><br>
+				<div class="mainText vote_average "><b>Average vote:</b> {{selectedMovie.vote_average}}</div><br>
+			</p>
+		</div>
+		
+		<div id="dividerinfo" v-if="viewInfo" v-on:click="closeInfo"></div>
+		<div id="pageInfo" v-if="viewInfo" v-on:click="closeInfo">
+			<div class="center gray">Click anywhere to close</div>
+			<p>
+				<div class="center">This website allows you to curate a list of currently trending movies, to help you and your friends decide what to watch next!<br> Simply register a new ID, review the movie recommendations, and remove those you've either seen before, or have no interest in watching.</div>
 			</p>
 		</div>
 		
@@ -64,19 +78,3 @@
 </footer>
 
 </html>
-					<!-- Image: https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg-->
-					<!--adult: false-->
-					<!--backdrop_path: "/qAhedRxRYWZAgZ8O8pHIl6QHdD7.jpg"-->
-					<!--genre_ids: (3) [28, 12, 35]-->
-					<!--id: 384018-->
-					<!--media_type: "movie"-->
-					<!--original_language: "en"-->
-					<!--original_title: "Fast & Furious Presents: Hobbs & Shaw"-->
-					<!--overview: "Ever since US Diplomatic Security Service Agent Hobbs and lawless outcast Shaw first faced off, they just have swapped smacks and bad words. But when cyber-genetically enhanced anarchist Brixton's ruthless actions threaten the future of humanity, both join forces to defeat him. (A spin-off of “The Fate of the Furious,” focusing on Johnson's Luke Hobbs and Statham's Deckard Shaw.)"-->
-					<!--popularity: 132.147-->
-					<!--poster_path: "/kvpNZAQow5es1tSY6XW2jAZuPPG.jpg"-->
-					<!--release_date: "2019-08-01"-->
-					<!--title: "Fast & Furious Presents: Hobbs & Shaw"-->
-					<!--video: false-->
-					<!--vote_average: 6.5-->
-					<!--vote_count: 1683-->

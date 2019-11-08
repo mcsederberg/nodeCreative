@@ -14,6 +14,7 @@ body{
     max-width: 33vw;
     margin-left: auto;
     margin-right: auto;
+    font-size: larger;
 }
 
 #loginWrapper{
@@ -28,6 +29,9 @@ body{
     margin-top: 50px;
     font-weight: bold;
     font-size: larger;
+}
+#return{
+    margin-top: 10px;
 }
 #moviesWrapper{
     display: flex;
@@ -48,7 +52,7 @@ body{
     width: 250px;
     height: 375px;
 }
-#divider{
+#divider, #dividerinfo{
     background: gray;
     z-index: 500;
     width: 150%;
@@ -58,7 +62,7 @@ body{
     left: -20px;
     opacity: .5;
 }
-#selectedDetails{
+#selectedDetails, #pageInfo{
     z-index: 501;
     position: fixed;
     top: 50%;
@@ -69,6 +73,12 @@ body{
     height: fit-content;
     padding: 25px;
     background: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.gray{
+    opacity: .8;
+    color: gray;
 }
 .selectedImage{
     width: 100%;

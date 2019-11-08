@@ -9,6 +9,7 @@ var app = new Vue({
     text: '',
     show: 'all',
     movies: [],
+    viewInfo: false,
     selectedMovie: {},
     noGroup: false,
     page: 1,
@@ -25,6 +26,7 @@ var app = new Vue({
 	this.noGroup = true;
 	this.selectedMovie = {};
 	this.page = 1;
+	this.viewInfo = false;
   },
   computed: {
     
@@ -95,6 +97,12 @@ var app = new Vue({
     	this.noGroup = true;
     	this.resetIDs();
     },
+    openInfo(){
+    	this.viewInfo = true;	
+    },
+    closeInfo(){
+    	this.viewInfo = false;
+    },
     selectMovie(movie){
     	this.selectedMovie = movie;
     },
@@ -163,7 +171,21 @@ var app = new Vue({
         	return response.json();
         }).then(function(json) {
         	console.log(json);
-        	var results = json.results;
+        	var temp = json.results;
+        	temp.forEach(function(movie, index, array){
+        		if (movie.adult){
+        			 array.splice(index,1);
+        		} else {
+	        		delete movie.adult;
+	        		delete movie.genre_ids;
+	        		delete movie.original_language;
+	        		delete movie.original_title;
+	        		delete movie.popularity;
+	        		delete movie.video;
+	        		delete movie.vote_count;
+        		}
+        	});
+        	var results = temp;
         	vue.movies = vue.movies.concat(results);
         	vue.displayingMovies = results.slice(0,15);
         	vue.page++;
